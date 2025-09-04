@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Department Management</h2>
+        <a href="{{ url_for('add_admin') }}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDepartmentModal">
+            <i class="fas fa-plus-circle me-1"></i> Add New Department
+        </a>
+    </div>
+
+    <!-- Departments Table Section -->
+    <div class="card border-0 shadow-lg">
+        <div class="card-header bg-gradient-primary text-white py-3">    
+            <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-list-alt me-2"></i>Departments List</h5>
+                    <span class="badge bg-light text-primary rounded-pill">{{ departments|length }} department</span>
+            </div>
+        </div>
+        
+        {% if departments %}
+        
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle py-5">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Department Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dept in departments %}
+                        <tr>
+                            <td>{{ dept['id'] }}</td>
+                            <td>{{ dept['name'] }}</td>
+                            <td>{{ dept['email'] if dept['email'] else 'N/A' }}</td>
+                            <td>{{ dept['phone'] if dept['phone'] else 'N/A' }}</td>
+                            <td class="text-center action-buttons">
+                                <!-- Edit Button -->
+                                <button class="btn btn-warning btn-sm edit-btn" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#editDepartmentModal"
+                                        data-dept-id="{{ dept['id'] }}"
+                                        data-dept-name="{{ dept['name'] }}"
+                                        data-dept-email="{{ dept['email'] if dept['email'] else '' }}"
+                                        data-dept-phone="{{ dept['phone'] if dept['phone'] else '' }}">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </button>
+                                
+                                <!-- Delete Button -->
+                                <button class="btn btn-danger btn-sm delete-btn" 
+                                        data-dept-id="{{ dept['id'] }}"
+                                        data-dept-name="{{ dept['name'] }}">
+                                    <i class="bi bi-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> No departments found. Please add a department.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+         
+<!-- Add Department Modal -->
+<div class="modal fade" id="addDepartmentModal" tabindex="-1" aria-labelledby="addDepartmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="addDepartmentModalLabel">Add New Department</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="addDepartmentForm" action="/add_department" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="addDeptName" class="form-label">Department Name*</label>
+                        <input type="text" class="form-control" id="addDeptName" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="addDeptEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="addDeptEmail" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="addDeptPhone" class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="addDeptPhone" name="phone">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Department</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Department Modal -->
+<div class="modal fade" id="editDepartmentModal" tabindex="-1" aria-labelledby="editDepartmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="editDepartmentModalLabel">Edit Department</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editDepartmentForm" action="/edit_department" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="dept_id" id="editDeptId">
+                    <div class="mb-3">
+                        <label for="editDeptName" class="form-label">Department Name*</label>
+                        <input type="text" class="form-control" id="editDeptName" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDeptEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="editDeptEmail" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDeptPhone" class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="editDeptPhone" name="phone">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteDepartmentModal" tabindex="-1" aria-labelledby="deleteDepartmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteDepartmentModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="deleteDepartmentForm" action="/delete_department" method="POST">
+                <input type="hidden" name="dept_id" id="deleteDeptId">
+                <div class="modal-body">
+                    <p>Are you sure you want to delete department: <strong id="deleteDeptName"></strong>?</p>
+                    <p class="text-danger">This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete Department</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+
+<!-- JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Edit Department Modal
+    const editDepartmentModal = document.getElementById('editDepartmentModal');
+    if (editDepartmentModal) {
+        editDepartmentModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            document.getElementById('editDeptId').value = button.getAttribute('data-dept-id');
+            document.getElementById('editDeptName').value = button.getAttribute('data-dept-name');
+            document.getElementById('editDeptEmail').value = button.getAttribute('data-dept-email');
+            document.getElementById('editDeptPhone').value = button.getAttribute('data-dept-phone');
+        });
+    }
+
+    // Delete Department Modal
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const deptId = this.getAttribute('data-dept-id');
+            const deptName = this.getAttribute('data-dept-name');
+            
+            document.getElementById('deleteDeptId').value = deptId;
+            document.getElementById('deleteDeptName').textContent = deptName;
+            
+            // Show the modal
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteDepartmentModal'));
+            deleteModal.show();
+        });
+    });
+
+    // Form validation (optional)
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(event) {
+            // Add any form validation logic here
+            // If validation fails, call event.preventDefault()
+        });
+    });
+});
+</script>
+
+{% endblock %}

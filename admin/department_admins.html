@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1">Department Admin Assignments</h2>
+            <p class="text-muted mb-0">View and manage department administrator assignments</p>
+        </div>
+        <a href="{{ url_for('assign_departments') }}" class="btn btn-primary">
+            <i class="fas fa-user-edit me-2"></i>Manage Assignments
+        </a>
+    </div>
+    
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white py-3">
+            <h4 class="mb-0">
+                <i class="fas fa-list-check me-2"></i>Current Assignments
+            </h4>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 30%">Department</th>
+                            <th>Assigned Administrators</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dept_id, dept in departments.items() %}
+                        <tr>
+                            <td class="align-middle">
+                                <strong class="d-block">{{ dept.name }}</strong>
+                                <small class="text-muted">ID: {{ dept_id }}</small>
+                            </td>
+                            <td>
+                                {% if dept.admins %}
+                                    <div class="d-flex flex-wrap gap-2">
+                                        {% for admin in dept.admins %}
+                                        <div class="admin-chip">
+                                            <div class="d-flex align-items-center rounded-3 bg-light border border-primary p-2">
+                                                <div class="me-2">
+                                                    <i class="fas fa-user-shield"></i>
+                                                </div>
+                                                <div>
+                                                    <span class="fw-medium">{{ admin.name }}</span> &nbsp; 
+                                                    <small class="text-muted">{{ admin.email }} </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <span class="text-muted fst-italic">No administrators assigned</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% if not departments %}
+        <div class="card-footer text-center text-muted py-4">
+            <i class="fas fa-inbox me-2"></i>No departments found in the system
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .admin-chip {
+        transition: all 0.2s ease;
+    }
+    
+    .admin-chip:hover {
+        transform: translateY(-2px);
+    }
+    
+    .admin-chip .bg-light {
+        transition: background-color 0.2s ease;
+    }
+    
+    .admin-chip:hover .bg-light {
+        background-color: #e9f5ff !important;
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: rgba(13, 110, 253, 0.05);
+    }
+    
+    .card {
+        border-radius: 0.75rem;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .card-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    th {
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+        color: #6c757d;
+        background-color: #f8f9fa;
+        padding: 0.75rem 1.5rem;
+    }
+    
+    td {
+        padding: 1rem 1.5rem;
+        vertical-align: middle;
+    }
+    
+    .table {
+        margin-bottom: 0;
+    }
+    
+    .table > :not(:first-child) {
+        border-top: 0;
+    }
+</style>
+{% endblock %}

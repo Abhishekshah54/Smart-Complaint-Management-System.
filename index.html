@@ -1,0 +1,372 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background-color: #f5f7ff;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(67, 97, 238, 0.9), rgba(63, 55, 201, 0.9)), url('https://images.unsplash.com/photo-1563013541-5a2d08e3c2fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+        }
+        
+        .feature-card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .stats-counter {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .process-step {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 40px;
+        }
+        
+        .process-step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .process-img {
+            width: 100%;        
+            max-width: 500px;   
+            height: 350px;      
+            object-fit: cover;  
+            display: block;
+            margin: 0 auto;  
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .testimonial-card {
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            height: 100%;
+        }
+        
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+        }
+    </style>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h1 class="display-4 fw-bold mb-4">Your Voice Matters to Local Government</h1>
+                    <p class="lead mb-5">Report issues, track complaints, and help make our community better together. Our complaint management system ensures your concerns reach the right department quickly.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="register.html" class="btn btn-lg btn-light">File a Complaint</a>
+                        <a href="#how-it-works" class="btn btn-lg btn-outline-light">How It Works</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block">
+                    <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Community engagement" class="img-fluid rounded-3 shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-counter py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <h2 class="display-4 fw-bold">1,245</h2>
+                    <p class="mb-0">Complaints Resolved</p>
+                </div>
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <h2 class="display-4 fw-bold">50+</h2>
+                    <p class="mb-0">Government Departments</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <h2 class="display-4 fw-bold">99%</h2>
+                    <p class="mb-0">Satisfaction Rate</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <h2 class="display-4 fw-bold">48h</h2>
+                    <p class="mb-0">Average Response Time</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">How Our Complaint System Works</h2>
+                <p class="lead text-muted">Simple steps to get your concerns addressed</p>
+            </div>
+            
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-step-number">1</div>
+                        <h4>Register & Log In</h4>
+                        <p>Create your account or login to access the complaint management system. Your identity is kept secure throughout the process.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-step-number">2</div>
+                        <h4>File a Complaint</h4>
+                        <p>Submit detailed information about your concern, including category, location, description, and any supporting evidence like photos.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-step-number">3</div>
+                        <h4>Track Progress</h4>
+                        <p>Monitor the status of your complaint in real-time. Receive updates when your complaint is assigned, in progress, or resolved.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6" id="image">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                        alt="Process illustration" 
+                        class="process-img img-fluid rounded-3 shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Why Use Our Complaint System?</h2>
+                <p class="lead text-muted">Designed for efficiency and transparency</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-paper-plane fa-3x"></i>
+                            </div>
+                            <h4 class="card-title">Direct to Departments</h4>
+                            <p class="card-text">Your complaints are routed directly to the relevant government department, eliminating middlemen and delays.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-chart-line fa-3x"></i>
+                            </div>
+                            <h4 class="card-title">Track Progress</h4>
+                            <p class="card-text">Monitor your complaint's journey from submission to resolution with real-time status updates.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-shield-alt fa-3x"></i>
+                            </div>
+                            <h4 class="card-title">Secure & Private</h4>
+                            <p class="card-text">Your personal information is protected, and you can choose to submit complaints anonymously where appropriate.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Departments Section -->
+    <section id="departments" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Government Departments</h2>
+                <p class="lead text-muted">We connect you with the right department for your concern</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-3 col-sm-6">
+                    <div class="card department-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-road fa-3x"></i>
+                            </div>
+                            <h5>Public Works</h5>
+                            <p class="small">Road maintenance, potholes, street lights, signage</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="card department-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-trash fa-3x"></i>
+                            </div>
+                            <h5>Sanitation</h5>
+                            <p class="small">Garbage collection, recycling, waste management</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="card department-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-tree fa-3x"></i>
+                            </div>
+                            <h5>Parks & Recreation</h5>
+                            <p class="small">Parks maintenance, playground equipment, public spaces</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="card department-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-tint fa-3x"></i>
+                            </div>
+                            <h5>Water Department</h5>
+                            <p class="small">Water supply, quality issues, leaks, billing inquiries</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="#" class="btn btn-outline-primary">View All Departments</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">What Citizens Say</h2>
+                <p class="lead text-muted">Hear from community members who've used our system</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="User" class="avatar me-3">
+                            <div>
+                                <h5 class="mb-0">Priya Sharma</h5>
+                                <small class="text-muted">Resident, Delhi</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">"I reported a broken streetlight in my colony and it was repaired in just 2 days. The live updates kept me informed at every step."</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="User" class="avatar me-3">
+                            <div>
+                                <h5 class="mb-0">Rajesh Patel</h5>
+                                <small class="text-muted">Shop Owner, Ahmedabad</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">"The system helped me report garbage collection delays outside my shop. The municipal team responded within hours – really impressive!"</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="User" class="avatar me-3">
+                            <div>
+                                <h5 class="mb-0">Ananya Iyer</h5>
+                                <small class="text-muted">Community Volunteer, Bengaluru</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">"I use this platform to raise local issues on behalf of our neighborhood. The transparency and accountability are a huge step forward."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container py-5 text-center">
+            <h2 class="fw-bold mb-3">Ready to Make a Difference in Your Community?</h2>
+            <p class="lead mb-4">Join hundreds of citizens who are improving our city through the complaint management system</p>
+            <a href="register.html" class="btn btn-light btn-lg">Get Started Now</a>
+        </div>
+    </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

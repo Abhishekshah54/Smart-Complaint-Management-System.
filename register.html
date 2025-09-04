@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<style>
+    .register-container {
+        max-width: 1150px;
+        padding: 0 15px;
+        margin-top: -140px;
+    }
+
+    .register-card {
+        border: none;
+        width: 100%;
+        margin-right: 200px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .register-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .register-header {
+        background: linear-gradient(135deg, #4361ee, #3f37c9);
+        color: white;
+        padding: 1.5rem 1rem;
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+    .register-body {
+        padding: 2rem;
+    }
+
+    .form-control {
+        height: 50px;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+        border-color: #4361ee;
+    }
+    
+    .input-group-text {
+        background-color: #f0f0f0;
+        border: 2px solid #e0e0e0;
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+    }
+
+    .input-group .form-control {
+        border-left: none;
+        border-radius: 0 8px 8px 0;
+    }
+
+    .input-group-text {
+        border-radius: 0.375rem;
+    }
+
+    .input-group .form-control {
+        border-right: 1px solid #e0e0e0;
+    }
+
+    .btn-register {
+        background-color: #4361ee;
+        border: none;
+        height: 50px;
+        font-weight: 600;
+        font-size: 1.05rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-register:hover {
+        background-color: #3f37c9;
+    }
+
+    .form-check-input{
+        border-color: black;
+    }
+
+    .promo-section {
+        background: linear-gradient(135deg, #4361ee, #3f37c9);
+        color: white;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 3rem;
+    }
+
+    .promo-icon {
+        font-size: 5rem;
+        margin-bottom: 2rem;
+        opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+        .register-body {
+            padding: 1.5rem;
+        }
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row min-vh-100">
+        <!-- Promo Section -->
+        <div class="col-lg-5 d-none d-lg-block p-0">
+            <div class="promo-section">
+                <i class="fas fa-user-plus promo-icon"></i>
+                <h2 class="mb-3">Join Our Community</h2>
+                <p class="lead mb-4">Start your journey with us and enjoy exclusive benefits</p>
+                <div class="d-flex align-items-center justify-content-center flex-wrap">
+                    <div class="me-4 mb-2">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <span>Secure registration</span>
+                    </div>
+                    <div class="mb-2">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <span>24/7 support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="col-lg-7 d-flex align-items-center justify-content-center py-4">
+            <div class="register-container w-100 px-lg-4">
+                <div class="register-card">
+                    <div class="register-header">
+                        <h3><i class="fas fa-user-plus me-2"></i>Create Account</h3>
+                        <p class="mb-0">Get started in just a few seconds</p>
+                    </div>
+
+                    <div class="register-body">
+                   <!-- Inside your register-body -->
+                        <form method="POST" action="{{ url_for('register') }}">
+                            <!-- Flash Messages -->
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                        <div class="alert alert-{{ category }} alert-dismissible fade show mb-4">
+                                            {{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+
+                            <div class="row">
+                                <!-- Full Name -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <!-- Phone -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">Phone Number (Optional)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number">
+                                    </div>
+                                </div>
+
+                                <!-- Password -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                                        <span class="input-group-text" id="toggle-password" style="cursor: pointer;">
+                                            <i class="fas fa-eye" id="toggle-icon"></i>
+                                        </span>
+                                    </div>
+                                    <small class="text-muted">Minimum 8 characters</small>
+                                </div>
+                               
+                            </div>
+
+                            <!-- Terms -->
+                            <div class="mb-4 form-check">
+                                <input class="form-check-input" type="checkbox" id="terms" required>
+                                <label class="form-check-label" for="terms">
+                                    I agree to the <a href="#" class="text-primary text-decoration-none">Terms</a> and 
+                                    <a href="#" class="text-primary text-decoration-none">Privacy Policy</a>
+                                </label>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-register btn-primary w-100 mb-3">
+                                <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                                Create Account
+                            </button>
+
+                            <!-- Login Link -->
+                            <div class="text-center">
+                                <p class="mb-0">Already have an account?
+                                    <a href="{{ url_for('login') }}" class="text-primary fw-bold text-decoration-none">Sign in</a>
+                                </p>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const togglePassword = document.querySelector('#toggle-password i');
+    const passwordInput = document.querySelector('#password');
+
+    document.querySelector('#toggle-password').addEventListener('click', function () {
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+        togglePassword.classList.toggle('fa-eye');
+        togglePassword.classList.toggle('fa-eye-slash');
+    });
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function () {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.querySelector('.spinner-border').classList.remove('d-none');
+    });
+});
+</script>
+{% endblock %}

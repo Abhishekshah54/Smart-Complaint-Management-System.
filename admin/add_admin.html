@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .card-header {
+        padding: 1.2rem;
+    }
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+    .password-toggle {
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .form-check-label {
+        user-select: none;
+    }
+</style>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0"><i class="fas fa-user-plus me-2"></i>Add New Admin</h4>
+                        <a href="{{ url_for('manage_admins') }}" class="btn btn-sm btn-light">
+                            <i class="fas fa-arrow-left me-1"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <form method="POST" novalidate>
+                        <!-- Name Field -->
+                        <div class="mb-4">
+                            <label for="name" class="form-label">Full Name*</label>
+                            <input type="text" class="form-control form-control-lg" id="name" name="name" required
+                                   placeholder="Enter admin's full name">
+                            <div class="invalid-feedback">
+                                Please provide a valid name.
+                            </div>
+                        </div>
+                        
+                        <!-- Email Field -->
+                        <div class="mb-4">
+                            <label for="email" class="form-label">Email Address*</label>
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" required
+                                   placeholder="Enter admin's email address">
+                            <div class="invalid-feedback">
+                                Please provide a valid email address.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="phone" class="form-label">Phone Number*</label>
+                            <input type="phone" class="form-control form-control-lg" id="phone" name="phone" required
+                                   placeholder="Enter admin's Phone Number">
+                            <div class="invalid-feedback">
+                                Please provide a valid Phone Number
+                            </div>
+                        </div>
+                        
+                        <!-- Password Field with Toggle -->
+                        <div class="mb-4 position-relative">
+                            <label for="password" class="form-label">Password*</label>
+                            <input type="password" class="form-control form-control-lg" id="password" name="password" required
+                                   placeholder="Create a strong password" minlength="8">
+                            <span class="password-toggle" onclick="togglePasswordVisibility()">
+                                <i class="fas fa-eye" id="toggleIcon"></i>
+                            </span>
+                            <div class="invalid-feedback">
+                                Password must be at least 8 characters long.
+                            </div>
+                            <div class="form-text">
+                                Minimum 8 characters with at least one number and one special character.
+                            </div>
+                        </div>
+                        
+                        <!-- Super Admin Checkbox -->
+                        <div class="mb-4 form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="is_superadmin" name="is_superadmin">
+                            <label class="form-check-label" for="is_superadmin">Grant Super Admin Privileges</label>
+                            <div class="form-text text-warning">
+                                <i class="fas fa-exclamation-circle me-1"></i>
+                                Super admins have full access to all system features.
+                            </div>
+                        </div>
+                        
+                        <!-- Form Actions -->
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a href="{{ url_for('manage_admins') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-2"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="fas fa-save me-2"></i> Save Admin
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<script>
+// Toggle password visibility
+function togglePasswordVisibility() {
+    const passwordField = document.getElementById('password');
+    const toggleIcon = document.getElementById('toggleIcon');
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+        passwordField.type = 'password';
+        toggleIcon.classList.replace('fa-eye-slash', 'fa-eye');
+    }
+}
+
+// Form validation
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    
+    form.addEventListener('submit', function(event) {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        
+        form.classList.add('was-validated');
+    }, false);
+    
+    // Password strength indicator (optional)
+    const passwordField = document.getElementById('password');
+    passwordField.addEventListener('input', function() {
+        // Add password strength validation if needed
+    });
+});
+</script>
+{% endblock %}
