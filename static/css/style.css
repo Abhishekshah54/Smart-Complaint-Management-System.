@@ -1,0 +1,140 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+    padding: 15px 20px;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+    background-color: #f8f9fa;
+    border-top: none;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 20px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #dee2e6;
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 20px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #0d6efd;
+    z-index: 1;
+}
+
+.timeline-header {
+    margin-bottom: 5px;
+}
+
+.timeline-body {
+    padding-bottom: 15px;
+}
+
+/* Custom badge colors */
+.badge.bg-warning {
+    background-color: #ffc107 !important;
+}
+
+.badge.bg-info {
+    background-color: #0dcaf0 !important;
+}
+
+.badge.bg-success {
+    background-color: #198754 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 15px;
+    }
+    
+    .table-responsive {
+        margin-bottom: 15px;
+    }
+}
+
+/* Form styling */
+.form-control, .form-select {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.btn {
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: 500;
+}
+
+/* Alert customization */
+.alert {
+    border-radius: 5px;
+}
+
+/* Dashboard stats cards */
+.card.text-white .card-body {
+    padding: 20px;
+}
+
+.card.text-white .card-title {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.card.text-white .card-text {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.expanded-length {
+    min-height: 100%; /* or you can use height: 600px */
+}
+
+.dropdown-menu {
+    max-height: none;  /* Removes the scrolling and allows full display */
+    overflow: visible; /* Ensures all items are shown without clipping */
+}
+
+footer.gov-footer {
+    background-color: #002147;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
